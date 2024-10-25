@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>link spammer</title>
+    <script>
+        function startSpamming() {
+            const link = document.getElementById('linkInput').value;
+            const delay = parseInt(document.getElementById('delayInput').value) * 1000;
+            const count = parseInt(document.getElementById('countInput').value);
+
+            if (!link || isNaN(delay) || isNaN(count) || delay < 0 || count < 0) {
+                alert('please enter an actual link and valid numbers u bafoon. No negative numbers allowed.');
+                return;
+            }
+
+            let openedLinks = 0;
+            if (delay === 0) {
+                for (let i = 0; i < count || count === 0; i++) {
+                    window.open(link, '_blank');
+                }
+            } else {
+                const interval = setInterval(() => {
+                    if (count !== 0 && openedLinks >= count) {
+                        clearInterval(interval);
+                        return;
+                    }
+                    window.open(link, '_blank');
+                    openedLinks++;
+                }, delay);
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>link spammer</h1>
+    <input type="text" id="linkInput" placeholder="enter link here" />
+    <input type="number" id="delayInput" placeholder="enter delay (in seconds)" min="0" />
+    <input type="number" id="countInput" placeholder="how many links? (0=inf)" min="0" />
+    <button onclick="startSpamming()">start</button>
+</body>
+</html>
